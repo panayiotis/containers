@@ -19,7 +19,7 @@ It is asked when you update data via the web interface.
 ## Usage
 Strabon need a PostGIS enabled PostgreSQL database system.
 To connect strabon to the
-[postgis](https://github.com/panayiotis/containers/tree/master/postgis)
+[postgis](/postgis)
 container, the *run* command must be invoked with the --link option to create a link between the two containers.
 *see [linking](https://docs.docker.com/userguide/dockerlinks/)*
 
