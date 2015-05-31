@@ -4,7 +4,7 @@
 #
 # Build:  docker build -t strabon .
 #   Run:  docker run -it -p 8080:8080 -p 8009:8009
-#                    --link panos/postgis:postgis --name strabon strabon
+#                    --link panos/postgis:postgis --name strabon panos/strabon
 #
 # To mount a local directory under /files url location in tomcat
 # add the parameter:
