@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# postgresql-setup	Initialization operations for PostgreSQL
+
+# PGVERSION is the full package version, e.g., 9.4.0
+# Note: the specfile inserts the correct value during package build
+PGVERSION=9.4.2
+
+# PGMAJORVERSION is major version, e.g., 9.4 (this should match PG_VERSION)
+PGMAJORVERSION=`echo "$PGVERSION" | sed 's/^\([0-9]*\.[0-9]*\).*$/\1/'`
+
+# PGENGINE is the directory containing the postmaster executable
+# Note: the specfile inserts the correct value during package build
+PGENGINE=/usr/pgsql-9.4/bin
+
+# PREVMAJORVERSION is the previous major version, e.g., 9.3, for upgrades
+PREVMAJORVERSION=9.3
+
+# PREVPGENGINE is the directory containing the previous postmaster executable
+PREVPGENGINE=/usr/pgsql-$PREVMAJORVERSION/bin
+
+PGDATA="/var/lib/pgsql/9.4/data"
+export PGDATA
+
+# Log file for initdb
+PGLOG=/var/lib/pgsql/9.4/initdb.log
+
+# For SELinux we need to use 'runuser' not 'su'
+if [ -x /sbin/runuser ]
+then
+    SU=runuser
+else
+    SU=su
+fi
+
+if [ -f "$PGDATA/PG_VERSION" ]; then
+    echo $"Data directory is not empty!"
+    echo
+    exit 1
+else
+    echo -n -e $"\e[0;33mInitializing database... \e[0m"
+    if [ ! -e "$PGDATA" ]; then
+        mkdir "$PGDATA" || return 1
+        chown postgres:postgres "$PGDATA"
+        chmod go-rwx "$PGDATA"
+    fi
+    # Clean up SELinux tagging for PGDATA
+    [ -x /sbin/restorecon ] && /sbin/restorecon "$PGDATA"
+
+    # Create the initdb log file if needed
+    if [ ! -e "$PGLOG" -a ! -h "$PGLOG" ]; then
+        touch "$PGLOG" || return 1
+        chown postgres:postgres "$PGLOG"
+        chmod go-rwx "$PGLOG"
+        [ -x /sbin/restorecon ] && /sbin/restorecon "$PGLOG"
+    fi
+
+    # Initialize the database
+    initdbcmd="$PGENGINE/initdb --pgdata='$PGDATA' --encoding=UTF8 --locale=en_US.UTF-8 --auth=ident --auth-host=md5"
+    initdbcmd+=" $PGSETUP_INITDB_OPTIONS"
+
+    $SU -l postgres -c "$initdbcmd" >> "$PGLOG" 2>&1 < /dev/null
+
+    # Create directory for postmaster log files
+    mkdir "$PGDATA/pg_log"
+    chown postgres:postgres "$PGDATA/pg_log"
+    chmod go-rwx "$PGDATA/pg_log"
+    [ -x /sbin/restorecon ] && /sbin/restorecon "$PGDATA/pg_log"
+
+    if [ -f "$PGDATA/PG_VERSION" ]; then
+      echo -e $"\e[0;32m OK \e[0m"
+    else
+      echo $"failed, see $PGLOG"
+      exit 1
+    fi
+fi
+exit 0
