@@ -81,7 +81,7 @@
         "zeppelin.dep.localrepo": "local-repo",
         "zeppelin.R.knitr": "true",
         "zeppelin.spark.maxResult": "1000",
-        "master": "local[*]",
+        "master": "spark://localhost:7077",
         "spark.kryo.registrator": "org.bdgenomics.adam.serialization.ADAMKryoRegistrator",
         "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
         "spark.app.name": "Zeppelin",
@@ -115,6 +115,10 @@ age \u003d F, warning \u003d F",
       "dependencies": [
         {
           "groupArtifactVersion": "/opt/adam.jar",
+          "local": false
+        },
+        {
+          "groupArtifactVersion": "org.bdgenomics.utils:utils-misc-spark2_2.11:0.2.8",
           "local": false
         }
       ],
