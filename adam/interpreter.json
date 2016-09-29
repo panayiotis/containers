@@ -5,7 +5,7 @@
       "name": "sh",
       "group": "sh",
       "properties": {
-        "shell.command.timeout.millisecs": "60000"
+        "shell.command.timeout.millisecs": "6000000"
       },
       "interpreterGroup": [
         {
@@ -81,7 +81,7 @@
         "zeppelin.dep.localrepo": "local-repo",
         "zeppelin.R.knitr": "true",
         "zeppelin.spark.maxResult": "1000",
-        "master": "spark://localhost:7077",
+        "master": "local[*]",
         "spark.kryo.registrator": "org.bdgenomics.adam.serialization.ADAMKryoRegistrator",
         "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
         "spark.app.name": "Zeppelin",

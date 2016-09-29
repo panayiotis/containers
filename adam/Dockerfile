@@ -57,15 +57,15 @@ ADD interpreter.json /opt/zeppelin/conf/
 
 ENV ZEPPELIN_HOME /opt/zeppelin
 
-ENV MASTER local[*]
-
-ENV SPARK_MASTER_WEBUI_PORT 9090
+ENV ZEPPELIN_PORT 9999
 
 ENV PATH $SPARK_HOME/bin:$HADOOP_HOME/bin:$ZEPPELIN_HOME/bin:$PATH
 
 ADD .bash_history /root/
 
-EXPOSE 4040 7077 8080 9090
+VOLUME ["/opt/zeppelin/conf", "/opt/zeppelin/notebook"]
+
+EXPOSE 4040 7077 8080 8181 9999
 
 WORKDIR /opt/zeppelin
 
