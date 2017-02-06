@@ -1,0 +1,28 @@
+## Currently unmaintained
+
+postgres:
+  image: panos/postgres
+  expose:
+   - "5432"
+
+strabon:
+  image: strabon
+  links:
+   - postgres
+  ports:
+   - "48967:8080"
+  expose:
+   - "8009"
+  volumes:
+   - workspace/underwater:/usr/share/tomcat/webapps/files/underwater
+
+sinatra:
+  image: sinatra
+  links:
+   - strabon
+  ports:
+   - "33984:3000"
+  volumes:
+   - workspace:/workspace
+  environment:
+   - RACK_ENV=development

@@ -1,4 +1,6 @@
-# PostgreSQL 9.4 with PostGIS extensions
+# PostgreSQL 9.4 with PostGIS extensions - UNMAINTAINED
+
+*currently unmaintained container*
 
 ### Build info
 This image is based on Centos 7

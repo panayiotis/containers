@@ -1,4 +1,7 @@
-# Strabon
+# Strabon - UNMAINTANED
+
+*currently unmaintained container*
+
 Strabon is a semantic spatiotemporal RDF store. You can use it to store linked geospatial data that changes over time and pose queries using SPARQL.
 *see [strabon.di.uoa.gr](http://strabon.di.uoa.gr/)*
 
