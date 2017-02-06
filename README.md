@@ -10,7 +10,7 @@ Docker container based on Centos 7 for ADAM genomics analysis platform
 ## Hadoop
 Docker container based on Centos 7
 
-    docker pull panos/adam
+    docker pull panos/hadoop
 
 This container is a base container
 
