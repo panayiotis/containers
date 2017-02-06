@@ -1,1 +1,2 @@
-*~
+/hdfs/dfs/*
+!/hdfs/dfs/.keep

@@ -2,24 +2,24 @@ version: '2'
 services:
   namenode:
     container_name: hdfs_namenode
-    #build: .
     image: panos/hdfs
     hostname: namenode
     ports:
       - "9000:9000"
       - "50070:50070"
     command: namenode
+    restart: always
     volumes:
       - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml:z
       - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml:z
       - ./dfs:/var/dfs:Z
   datanode:
     container_name: hdfs_datanode
-    #build: .
     image: panos/hdfs
     ports:
       - "50075"
     command: datanode
+    restart: always
     volumes:
       - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml:z
       - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml:z

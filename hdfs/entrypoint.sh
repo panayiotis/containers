@@ -1,13 +1,13 @@
-#!/usr/bin/bash
+#!/bin/bash
+set -e
 
-dfs="/var/dfs"
+dfs="/var/dfs/name"
 
-if [ "$(ls -A $dfs)" ]; then
-  echo "do not format namenode"
-else
-  echo "format namenode"
+if [ $1 == "namenode" ] && [ ! -d "$dfs" ] || [ ! "$(ls -A $dfs)" ]
+then
+  echo "Format namenode"
   hdfs namenode -format
 fi
 
-hdfs $@
+exec hdfs "$@"
 
