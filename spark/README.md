@@ -1,7 +1,7 @@
 # Spark container
 
 # Version
-Spark 2.0.1  
+Spark 2.1.0  
 Hadoop 2.7.3  
 
 ## Build
