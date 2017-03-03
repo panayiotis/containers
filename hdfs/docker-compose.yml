@@ -13,6 +13,8 @@ services:
       - ./core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml:z
       - ./hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml:z
       - ./dfs:/var/dfs:Z
+    entrypoint:
+      - /opt/hadoop/entrypoint.sh
   datanode:
     container_name: hdfs_datanode
     image: panos/hdfs
@@ -26,3 +28,5 @@ services:
       - ./dfs:/var/dfs:Z
     links:
       - namenode:namenode
+    entrypoint:
+      - /opt/hadoop/entrypoint.sh

@@ -8,4 +8,4 @@ COPY entrypoint.sh /opt/hadoop/
 
 EXPOSE 9000 50010 50020 50070 50075 50090
 
-ENTRYPOINT ["/opt/hadoop/entrypoint.sh"]
+# ENTRYPOINT ["/opt/hadoop/entrypoint.sh"]

@@ -3,10 +3,16 @@ set -e
 
 dfs="/var/dfs/name"
 
-if [ $1 == "namenode" ] && [ ! -d "$dfs" ] || [ ! "$(ls -A $dfs)" ]
+if [ ! -d "$dfs" ] || [ ! "$(ls -A $dfs)" ]
 then
-  echo "Format namenode"
-  hdfs namenode -format
+  if [ $1 == "namenode" ]
+  then
+    echo "Format namenode"
+    hdfs namenode -format
+  else
+    echo "Delay datanode while namenode is formating"
+    sleep 20
+  fi
 fi
 
 exec hdfs "$@"
