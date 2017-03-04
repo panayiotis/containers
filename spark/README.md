@@ -10,12 +10,12 @@ Hadoop 2.7.3
 ## Run
 ##### spark master
 
-    docker run --rm -it --name spark-master --hostname master panos/spark org.apache.spark.deploy.master.Master
+    docker run --rm -it --name spark-master --hostname master --entrypoint /opt/spark/bin/spark-class panos/spark org.apache.spark.deploy.master.Master
 
 ##### spark worker
     
     master=`docker inspect --format '{{.NetworkSettings.IPAddress}}' spark-master`
-    docker run --rm -it --name spark-worker-01 --add-host master:$master panos/spark org.apache.spark.deploy.worker.Worker spark://master:7077
+    docker run --rm -it --name spark-worker-01 --add-host master:$master --entrypoint /opt/spark/bin/spark-class panos/spark org.apache.spark.deploy.worker.Worker spark://master:7077
 
 ##### submit a jar 
     master=`docker inspect --format '{{.NetworkSettings.IPAddress}}' spark-master`
