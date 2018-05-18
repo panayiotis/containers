@@ -1,33 +1,40 @@
 # Big Data containers
 
-## ADAM
-Docker container based on Centos 7 for ADAM genomics analysis platform
-
-    docker pull panos/adam
-
-[more](/adam/README.md)
-
 ## Hadoop
-Docker container based on Centos 7
+Docker container based on Fedora 28
 
     docker pull panos/hadoop
 
 This container is a base container
 
-## HDFS
-Docker container based on Centos 7 for Apache Hadoop filesystem.
-
-    docker pull panos/hdfs
-
 ## Spark
-Docker container based on Centos 7 for Apache Spark
+Docker container based on Fedora 28
 
     docker pull panos/spark
 
 [more](/spark/README.md)
 
+## Zeppelin
+Docker container based on Fedora 28
 
-# Semantic Web containers - unmaintained
+    docker pull panos/zeppelin
+
+## Livy
+Docker container based on Fedora 28
+
+    docker pull panos/livy
+
+## Redis
+Docker container based on Fedora 28
+
+    docker pull panos/redis
+
+## Nginx
+Docker container based on Fedora 28
+
+    docker pull panos/nginx
+
+# Semantic Web containers - deprecated
 
 ## Strabon
 Docker container based on Centos 7 for Strabon

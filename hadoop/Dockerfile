@@ -1,20 +1,29 @@
-FROM centos:7.3.1611
+FROM fedora:28
 
-LABEL maintainer "Panayiotis Vlantis <panosv@di.uoa.gr>"
+LABEL maintainer "Panayiotis Vlantis <vlantis.p@gmail.com>"
 
-LABEL hadoop 2.7.3
+LABEL name "Apache Hadoop"
 
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-    yum -y install java-1.8.0-openjdk-headless which && \
-    yum clean all ;
+LABEL version "2.7.6"
+
+RUN true \
+    && dnf install -y --setopt=tsflags=nodocs 'dnf-command(config-manager)' \
+    && dnf config-manager --set-disabled updates \
+    && dnf install -y --setopt=tsflags=nodocs \
+         hostname \
+         iputils \
+         java-1.8.0-openjdk-headless \
+         tree \
+    && dnf clean all
 
 ENV JAVA_HOME /usr/lib/jvm/jre
 
-WORKDIR /opt
-
-RUN mkdir hadoop && \
-    curl -s https://www-us.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz \
-    | gunzip | tar x --strip=1 -C hadoop
+RUN true \
+    && set -o pipefail \
+    && mkdir /opt/hadoop \
+    && curl -s https://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz \
+    | gunzip \
+    | tar x --strip=1 -C /opt/hadoop
 
 ENV HADOOP_HOME /opt/hadoop
 
